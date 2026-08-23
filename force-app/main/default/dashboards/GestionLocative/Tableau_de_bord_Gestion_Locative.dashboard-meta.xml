@@ -30,7 +30,7 @@
             <operator>equals</operator>
             <values>2023</values>
         </dashboardFilterOptions>
-        <name>Année Fiscale / Concernée</name>
+        <name>Année Fiscale / Échéance</name>
     </dashboardFilters>
     
     <dashboardFilters>
@@ -66,9 +66,126 @@
     </dashboardFilters>
 
     <dashboardGridLayout>
-        <!-- LIGNE 1 : Répartition Loyers & Dépenses & Statuts -->
+        <!-- LIGNE 0 : 4 Cartes KPI / Métriques Clés en grand format -->
         <dashboardGridComponents>
-            <colSpan>4</colSpan>
+            <colSpan>3</colSpan>
+            <columnIndex>0</columnIndex>
+            <dashboardComponent>
+                <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+                <chartSummary>
+                    <aggregate>Sum</aggregate>
+                    <axisBinding>y</axisBinding>
+                    <column>Paiement__c.Montant_Loyer__c</column>
+                </chartSummary>
+                <componentType>Metric</componentType>
+                <dashboardFilterColumns>
+                    <column>Paiement__c.Annee_Concernee__c</column>
+                </dashboardFilterColumns>
+                <dashboardFilterColumns>
+                    <column>Paiement__c.Bien_Locatif__c</column>
+                </dashboardFilterColumns>
+                <displayUnits>Auto</displayUnits>
+                <header>Loyers Bruts Annuels</header>
+                <indicatorHighColor>#00716B</indicatorHighColor>
+                <indicatorLowColor>#C23934</indicatorLowColor>
+                <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
+                <report>GestionLocative/Synthese_Loyers_par_Bien</report>
+                <showRange>false</showRange>
+            </dashboardComponent>
+            <rowIndex>0</rowIndex>
+            <rowSpan>3</rowSpan>
+        </dashboardGridComponents>
+
+        <dashboardGridComponents>
+            <colSpan>3</colSpan>
+            <columnIndex>3</columnIndex>
+            <dashboardComponent>
+                <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+                <chartSummary>
+                    <aggregate>Sum</aggregate>
+                    <axisBinding>y</axisBinding>
+                    <column>Paiement__c.MontantEncaisse__c</column>
+                </chartSummary>
+                <componentType>Metric</componentType>
+                <dashboardFilterColumns>
+                    <column>Paiement__c.Annee_Concernee__c</column>
+                </dashboardFilterColumns>
+                <dashboardFilterColumns>
+                    <column>Paiement__c.Bien_Locatif__c</column>
+                </dashboardFilterColumns>
+                <displayUnits>Auto</displayUnits>
+                <header>Loyers Encaissés (Nets)</header>
+                <indicatorHighColor>#00716B</indicatorHighColor>
+                <indicatorLowColor>#C23934</indicatorLowColor>
+                <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
+                <report>GestionLocative/Synthese_Loyers_par_Bien</report>
+                <showRange>false</showRange>
+            </dashboardComponent>
+            <rowIndex>0</rowIndex>
+            <rowSpan>3</rowSpan>
+        </dashboardGridComponents>
+
+        <dashboardGridComponents>
+            <colSpan>3</colSpan>
+            <columnIndex>6</columnIndex>
+            <dashboardComponent>
+                <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+                <chartSummary>
+                    <aggregate>Sum</aggregate>
+                    <axisBinding>y</axisBinding>
+                    <column>Depense__c.Montant_Total__c</column>
+                </chartSummary>
+                <componentType>Metric</componentType>
+                <dashboardFilterColumns>
+                    <column>Depense__c.Annee_Fiscale__c</column>
+                </dashboardFilterColumns>
+                <dashboardFilterColumns>
+                    <column>FK_NAME</column>
+                </dashboardFilterColumns>
+                <displayUnits>Auto</displayUnits>
+                <header>Total Dépenses Décaissées</header>
+                <indicatorHighColor>#C23934</indicatorHighColor>
+                <indicatorLowColor>#00716B</indicatorLowColor>
+                <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
+                <report>GestionLocative/Structure_Depenses_par_Poste</report>
+                <showRange>false</showRange>
+            </dashboardComponent>
+            <rowIndex>0</rowIndex>
+            <rowSpan>3</rowSpan>
+        </dashboardGridComponents>
+
+        <dashboardGridComponents>
+            <colSpan>3</colSpan>
+            <columnIndex>9</columnIndex>
+            <dashboardComponent>
+                <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+                <chartSummary>
+                    <aggregate>Sum</aggregate>
+                    <axisBinding>y</axisBinding>
+                    <column>Depense__c.Montant_Capital__c</column>
+                </chartSummary>
+                <componentType>Metric</componentType>
+                <dashboardFilterColumns>
+                    <column>Depense__c.Annee_Fiscale__c</column>
+                </dashboardFilterColumns>
+                <dashboardFilterColumns>
+                    <column>FK_NAME</column>
+                </dashboardFilterColumns>
+                <displayUnits>Auto</displayUnits>
+                <header>Capital Amorti (Enrichissement)</header>
+                <indicatorHighColor>#00716B</indicatorHighColor>
+                <indicatorLowColor>#C23934</indicatorLowColor>
+                <indicatorMiddleColor>#FFB75D</indicatorMiddleColor>
+                <report>GestionLocative/Depenses_et_Amortissement_par_Bien</report>
+                <showRange>false</showRange>
+            </dashboardComponent>
+            <rowIndex>0</rowIndex>
+            <rowSpan>3</rowSpan>
+        </dashboardGridComponents>
+
+        <!-- LIGNE 1 : Grands Graphiques Circulaires (Donuts avec Légendes et Totaux) -->
+        <dashboardGridComponents>
+            <colSpan>6</colSpan>
             <columnIndex>0</columnIndex>
             <dashboardComponent>
                 <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
@@ -92,7 +209,7 @@
                 <expandOthers>false</expandOthers>
                 <groupingColumn>Paiement__c.Bien_Locatif__c</groupingColumn>
                 <groupingSortProperties/>
-                <header>Répartition des Loyers par Lot</header>
+                <header>Répartition des Loyers Bruts par Lot</header>
                 <legendPosition>Right</legendPosition>
                 <report>GestionLocative/Synthese_Loyers_par_Bien</report>
                 <showPercentage>true</showPercentage>
@@ -101,13 +218,13 @@
                 <sortBy>RowValueDescending</sortBy>
                 <useReportChart>false</useReportChart>
             </dashboardComponent>
-            <rowIndex>0</rowIndex>
-            <rowSpan>4</rowSpan>
+            <rowIndex>3</rowIndex>
+            <rowSpan>7</rowSpan>
         </dashboardGridComponents>
 
         <dashboardGridComponents>
-            <colSpan>4</colSpan>
-            <columnIndex>4</columnIndex>
+            <colSpan>6</colSpan>
+            <columnIndex>6</columnIndex>
             <dashboardComponent>
                 <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
                 <chartAxisRange>auto</chartAxisRange>
@@ -130,7 +247,7 @@
                 <expandOthers>false</expandOthers>
                 <groupingColumn>CUST_RECORDTYPE</groupingColumn>
                 <groupingSortProperties/>
-                <header>Structure des Dépenses par Type</header>
+                <header>Structure des Dépenses par Type de Charge</header>
                 <legendPosition>Right</legendPosition>
                 <report>GestionLocative/Structure_Depenses_par_Poste</report>
                 <showPercentage>true</showPercentage>
@@ -139,49 +256,11 @@
                 <sortBy>RowValueDescending</sortBy>
                 <useReportChart>false</useReportChart>
             </dashboardComponent>
-            <rowIndex>0</rowIndex>
-            <rowSpan>4</rowSpan>
+            <rowIndex>3</rowIndex>
+            <rowSpan>7</rowSpan>
         </dashboardGridComponents>
 
-        <dashboardGridComponents>
-            <colSpan>4</colSpan>
-            <columnIndex>8</columnIndex>
-            <dashboardComponent>
-                <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
-                <chartAxisRange>auto</chartAxisRange>
-                <chartSummary>
-                    <aggregate>Sum</aggregate>
-                    <axisBinding>y</axisBinding>
-                    <column>Paiement__c.Montant_Total__c</column>
-                </chartSummary>
-                <componentType>Donut</componentType>
-                <dashboardFilterColumns>
-                    <column>Paiement__c.Annee_Concernee__c</column>
-                </dashboardFilterColumns>
-                <dashboardFilterColumns>
-                    <column>Paiement__c.Bien_Locatif__c</column>
-                </dashboardFilterColumns>
-                <displayUnits>Auto</displayUnits>
-                <drillEnabled>false</drillEnabled>
-                <drillToDetailEnabled>false</drillToDetailEnabled>
-                <enableHover>true</enableHover>
-                <expandOthers>false</expandOthers>
-                <groupingColumn>Paiement__c.Statut__c</groupingColumn>
-                <groupingSortProperties/>
-                <header>Statut des Échéances de Loyers</header>
-                <legendPosition>Right</legendPosition>
-                <report>GestionLocative/Statut_des_Paiements_Recettes</report>
-                <showPercentage>true</showPercentage>
-                <showTotal>true</showTotal>
-                <showValues>true</showValues>
-                <sortBy>RowLabelAscending</sortBy>
-                <useReportChart>false</useReportChart>
-            </dashboardComponent>
-            <rowIndex>0</rowIndex>
-            <rowSpan>4</rowSpan>
-        </dashboardGridComponents>
-
-        <!-- LIGNE 2 : Bilan Dépenses vs Capital Amorti & Chrono-Flux Mensuel -->
+        <!-- LIGNE 2 : Grands Graphiques Analytiques (Barres & Colonnes Spacieuses) -->
         <dashboardGridComponents>
             <colSpan>6</colSpan>
             <columnIndex>0</columnIndex>
@@ -212,7 +291,7 @@
                 <expandOthers>false</expandOthers>
                 <groupingColumn>FK_NAME</groupingColumn>
                 <groupingSortProperties/>
-                <header>Dépenses Totales &amp; Capital Amorti par Bien</header>
+                <header>Dépenses Totales vs Capital Amorti par Bien</header>
                 <legendPosition>Bottom</legendPosition>
                 <report>GestionLocative/Depenses_et_Amortissement_par_Bien</report>
                 <showPercentage>false</showPercentage>
@@ -220,8 +299,8 @@
                 <sortBy>RowValueDescending</sortBy>
                 <useReportChart>false</useReportChart>
             </dashboardComponent>
-            <rowIndex>4</rowIndex>
-            <rowSpan>5</rowSpan>
+            <rowIndex>10</rowIndex>
+            <rowSpan>8</rowSpan>
         </dashboardGridComponents>
 
         <dashboardGridComponents>
@@ -254,7 +333,7 @@
                 <expandOthers>false</expandOthers>
                 <groupingColumn>Paiement__c.Mois_Concerne__c</groupingColumn>
                 <groupingSortProperties/>
-                <header>Chrono-flux Mensuel (Facturé vs Encaissé)</header>
+                <header>Chrono-flux Mensuel : Facturé vs Encaissé</header>
                 <legendPosition>Bottom</legendPosition>
                 <report>GestionLocative/Chronologie_Mensuelle_Paiements</report>
                 <showPercentage>false</showPercentage>
@@ -262,11 +341,11 @@
                 <sortBy>RowLabelAscending</sortBy>
                 <useReportChart>false</useReportChart>
             </dashboardComponent>
-            <rowIndex>4</rowIndex>
-            <rowSpan>5</rowSpan>
+            <rowIndex>10</rowIndex>
+            <rowSpan>8</rowSpan>
         </dashboardGridComponents>
 
-        <!-- LIGNE 3 : Performance & Rendements & Baux Actifs -->
+        <!-- LIGNE 3 : Tableaux Détaillés et Lisibles -->
         <dashboardGridComponents>
             <colSpan>6</colSpan>
             <columnIndex>0</columnIndex>
@@ -320,8 +399,8 @@
                 <header>Synthèse Financière des Recettes Locatives</header>
                 <report>GestionLocative/Synthese_Loyers_par_Bien</report>
             </dashboardComponent>
-            <rowIndex>9</rowIndex>
-            <rowSpan>5</rowSpan>
+            <rowIndex>18</rowIndex>
+            <rowSpan>8</rowSpan>
         </dashboardGridComponents>
 
         <dashboardGridComponents>
@@ -377,8 +456,8 @@
                 <header>Synthèse des Charges &amp; Amortissements</header>
                 <report>GestionLocative/Depenses_et_Amortissement_par_Bien</report>
             </dashboardComponent>
-            <rowIndex>9</rowIndex>
-            <rowSpan>5</rowSpan>
+            <rowIndex>18</rowIndex>
+            <rowSpan>8</rowSpan>
         </dashboardGridComponents>
 
         <numberOfColumns>12</numberOfColumns>
