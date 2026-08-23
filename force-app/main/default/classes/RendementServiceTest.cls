@@ -78,7 +78,6 @@ private class RendementServiceTest {
             Nature__c = 'Taxe foncière',
             Montant__c = 1200,
             Recuperable__c = false,
-            Annee_Fiscale__c = '2023',
             Description__c = 'Taxe foncière 2023'
         );
         depenses.add(taxeFonciere);
@@ -90,7 +89,6 @@ private class RendementServiceTest {
             Nature__c = 'Assurance',
             Montant__c = 400,
             Recuperable__c = false,
-            Annee_Fiscale__c = '2023',
             Description__c = 'Assurance propriétaire non occupant'
         );
         depenses.add(assurance);
@@ -102,7 +100,6 @@ private class RendementServiceTest {
             Nature__c = 'Charges de copropriété',
             Montant__c = 600,
             Recuperable__c = true,
-            Annee_Fiscale__c = '2023',
             Description__c = 'Charges de copropriété 1er semestre 2023'
         );
         depenses.add(chargesCopro);

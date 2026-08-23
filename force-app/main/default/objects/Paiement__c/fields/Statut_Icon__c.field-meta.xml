@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Statut_Icon__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(
+    ISPICKVAL(Statut__c, 'Encaissé'),
+    IMAGE('/img/samples/flag_green.gif', 'Encaissé', 16, 16),
+    IMAGE('/img/samples/flag_red.gif', 'Non Encaissé', 16, 16)
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Statut Icon</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

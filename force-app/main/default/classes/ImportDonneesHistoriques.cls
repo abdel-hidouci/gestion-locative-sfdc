@@ -287,7 +287,6 @@ public class ImportDonneesHistoriques {
                 Nature__c = fields[3],
                 Montant__c = fields[4] != '' ? Decimal.valueOf(fields[4]) : null,
                 Recuperable__c = fields[5] == 'true',
-                Annee_Fiscale__c = fields[6],
                 Description__c = fields[7]
             );
             

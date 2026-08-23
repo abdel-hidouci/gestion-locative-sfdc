@@ -46,7 +46,6 @@ private class DepenseTriggerTest {
             Nature__c = 'Taxe foncière',
             Montant__c = 1200,
             Recuperable__c = false,
-            Annee_Fiscale__c = String.valueOf(Date.today().year()),
             Description__c = 'Taxe foncière annuelle'
         );
         insert depense;
@@ -76,7 +75,6 @@ private class DepenseTriggerTest {
             Nature__c = 'Taxe foncière',
             Montant__c = 1200,
             Recuperable__c = false,
-            Annee_Fiscale__c = String.valueOf(Date.today().year()),
             Description__c = 'Taxe foncière annuelle'
         );
         insert depense;
@@ -116,7 +114,6 @@ private class DepenseTriggerTest {
             Nature__c = 'Taxe foncière',
             Montant__c = 1200,
             Recuperable__c = false,
-            Annee_Fiscale__c = String.valueOf(Date.today().year()),
             Description__c = 'Taxe foncière annuelle'
         );
         insert depense;
@@ -156,7 +153,6 @@ private class DepenseTriggerTest {
             Nature__c = 'Taxe foncière',
             Montant__c = -100, // Montant négatif
             Recuperable__c = false,
-            Annee_Fiscale__c = String.valueOf(Date.today().year()),
             Description__c = 'Taxe foncière annuelle'
         );
         
@@ -177,8 +173,7 @@ private class DepenseTriggerTest {
         // Créer une dépense
         Depense__c depense = new Depense__c(
             Bien_Locatif__c = 'BienTestId',
-            Montant__c = 500,
-            Annee_Fiscale__c = '2023'
+            Montant__c = 500
         );
         insert depense;
 

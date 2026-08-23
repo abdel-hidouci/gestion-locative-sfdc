@@ -20,6 +20,8 @@
     <tabs>Depense__c</tabs>
     <tabs>Quittance__c</tabs>
     <tabs>Rendement__c</tabs>
+    <tabs>standard-report</tabs>
+    <tabs>standard-Dashboard</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Gestion_Locative_UtilityBar</utilityBar>
 </CustomApplication>

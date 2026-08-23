@@ -3,27 +3,62 @@
     <fullName>Nature__c</fullName>
     <externalId>false</externalId>
     <label>Nature</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
         <valueSetDefinition>
+            <sorted>false</sorted>
             <value>
                 <fullName>Taxe foncière</fullName>
                 <default>false</default>
                 <label>Taxe foncière</label>
             </value>
             <value>
-                <fullName>Assurance</fullName>
+                <fullName>Assurance PNO</fullName>
                 <default>false</default>
-                <label>Assurance</label>
+                <label>Assurance PNO</label>
             </value>
             <value>
-                <fullName>Charges de copropriété</fullName>
+                <fullName>Comptabilité</fullName>
                 <default>false</default>
-                <label>Charges de copropriété</label>
+                <label>Comptabilité</label>
+            </value>
+            <value>
+                <fullName>CGA</fullName>
+                <default>false</default>
+                <label>CGA</label>
+            </value>
+            <value>
+                <fullName>CFE</fullName>
+                <default>false</default>
+                <label>CFE</label>
+            </value>
+            <value>
+                <fullName>Fonds Travaux loi Alur</fullName>
+                <default>false</default>
+                <label>Fonds Travaux loi Alur</label>
+            </value>
+            <value>
+                <fullName>Fonds de roulement</fullName>
+                <default>false</default>
+                <label>Fonds de roulement</label>
+            </value>
+            <value>
+                <fullName>Autre</fullName>
+                <default>false</default>
+                <label>Autre</label>
+            </value>
+            <value>
+                <fullName>Frais de gestion - Agence immobilière</fullName>
+                <default>false</default>
+                <label>Frais de gestion - Agence immobilière</label>
+            </value>
+            <value>
+                <fullName>Frais de mise en location</fullName>
+                <default>false</default>
+                <label>Frais de mise en location</label>
             </value>
         </valueSetDefinition>
     </valueSet>
-    <required>false</required>
-    <trackHistory>false</trackHistory>
-    <trackTrending>false</trackTrending>
 </CustomField>
