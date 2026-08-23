@@ -58,12 +58,15 @@ private class PaiementTriggerTest {
     @isTest
     static void testGenerationQuittanceAutomatique() {
         // Récupérer le bail de test
-        Bail__c bail = [SELECT Id FROM Bail__c WHERE Name = 'Bail Test' LIMIT 1];
+        Bail__c bail = [SELECT Id, Locataire__c FROM Bail__c LIMIT 1];
         
         // Créer un paiement en attente
         Paiement__c paiement = new Paiement__c(
             Bail__c = bail.Id,
+            Locataire__c = bail.Locataire__c,
             Date_Paiement__c = Date.today(),
+            Periode_Debut__c = Date.today(),
+            Periode_Fin__c = Date.today(),
             Montant_Loyer__c = 800,
             Montant_Charges__c = 100,
             Statut__c = 'En attente',
@@ -97,7 +100,7 @@ private class PaiementTriggerTest {
     @isTest
     static void testMiseAJourRendementInsertionPaiement() {
         // Récupérer le bail et le bien de test
-        Bail__c bail = [SELECT Id, Bien_Locatif__c FROM Bail__c WHERE Name = 'Bail Test' LIMIT 1];
+        Bail__c bail = [SELECT Id, Bien_Locatif__c FROM Bail__c LIMIT 1];
         Id bienId = bail.Bien_Locatif__c;
         
         // Vérifier qu'aucun rendement n'existe initialement
@@ -109,6 +112,8 @@ private class PaiementTriggerTest {
         Paiement__c paiement = new Paiement__c(
             Bail__c = bail.Id,
             Date_Paiement__c = Date.today(),
+            Periode_Debut__c = Date.today(),
+            Periode_Fin__c = Date.today(),
             Montant_Loyer__c = 800,
             Montant_Charges__c = 100,
             Statut__c = 'Encaissé',
@@ -119,13 +124,13 @@ private class PaiementTriggerTest {
         Test.stopTest();
         
         // Vérifier qu'un rendement a été créé
-        List<Rendement__c> rendementsApres = [SELECT Id, Total_Loyers__c, Total_Charges__c FROM Rendement__c WHERE Bien_Locatif__c = :bienId AND Annee__c = :String.valueOf(Date.today().year())];
+        List<Rendement__c> rendementsApres = [SELECT Id, Total_Loyers__c, Total_Charges_Percues__c FROM Rendement__c WHERE Bien_Locatif__c = :bienId AND Annee__c = :String.valueOf(Date.today().year())];
         System.assertEquals(1, rendementsApres.size(), 'Aucun rendement n\'a été créé après insertion du paiement');
         
         // Vérifier que les montants du rendement sont corrects
         Rendement__c rendement = rendementsApres[0];
         System.assertEquals(800, rendement.Total_Loyers__c, 'Le total des loyers dans le rendement est incorrect');
-        System.assertEquals(100, rendement.Total_Charges__c, 'Le total des charges dans le rendement est incorrect');
+        System.assertEquals(100, rendement.Total_Charges_Percues__c, 'Le total des charges dans le rendement est incorrect');
     }
     
     /**
@@ -134,13 +139,15 @@ private class PaiementTriggerTest {
     @isTest
     static void testMiseAJourRendementModificationPaiement() {
         // Récupérer le bail et le bien de test
-        Bail__c bail = [SELECT Id, Bien_Locatif__c FROM Bail__c WHERE Name = 'Bail Test' LIMIT 1];
+        Bail__c bail = [SELECT Id, Bien_Locatif__c FROM Bail__c LIMIT 1];
         Id bienId = bail.Bien_Locatif__c;
         
         // Insérer un paiement
         Paiement__c paiement = new Paiement__c(
             Bail__c = bail.Id,
             Date_Paiement__c = Date.today(),
+            Periode_Debut__c = Date.today(),
+            Periode_Fin__c = Date.today(),
             Montant_Loyer__c = 800,
             Montant_Charges__c = 100,
             Statut__c = 'Encaissé',
@@ -150,10 +157,10 @@ private class PaiementTriggerTest {
         insert paiement;
         
         // Vérifier qu'un rendement a été créé avec les montants initiaux
-        List<Rendement__c> rendementsAvant = [SELECT Id, Total_Loyers__c, Total_Charges__c FROM Rendement__c WHERE Bien_Locatif__c = :bienId AND Annee__c = :String.valueOf(Date.today().year())];
+        List<Rendement__c> rendementsAvant = [SELECT Id, Total_Loyers__c, Total_Charges_Percues__c FROM Rendement__c WHERE Bien_Locatif__c = :bienId AND Annee__c = :String.valueOf(Date.today().year())];
         System.assertEquals(1, rendementsAvant.size(), 'Aucun rendement n\'a été créé après insertion du paiement');
         System.assertEquals(800, rendementsAvant[0].Total_Loyers__c, 'Le total initial des loyers dans le rendement est incorrect');
-        System.assertEquals(100, rendementsAvant[0].Total_Charges__c, 'Le total initial des charges dans le rendement est incorrect');
+        System.assertEquals(100, rendementsAvant[0].Total_Charges_Percues__c, 'Le total initial des charges dans le rendement est incorrect');
         
         // Modifier le paiement
         Test.startTest();
@@ -163,12 +170,12 @@ private class PaiementTriggerTest {
         Test.stopTest();
         
         // Vérifier que le rendement a été mis à jour
-        List<Rendement__c> rendementsApres = [SELECT Id, Total_Loyers__c, Total_Charges__c FROM Rendement__c WHERE Bien_Locatif__c = :bienId AND Annee__c = :String.valueOf(Date.today().year())];
+        List<Rendement__c> rendementsApres = [SELECT Id, Total_Loyers__c, Total_Charges_Percues__c FROM Rendement__c WHERE Bien_Locatif__c = :bienId AND Annee__c = :String.valueOf(Date.today().year())];
         System.assertEquals(1, rendementsApres.size(), 'Le rendement a été supprimé après modification du paiement');
         
         // Vérifier que les montants du rendement ont été mis à jour
         Rendement__c rendement = rendementsApres[0];
         System.assertEquals(850, rendement.Total_Loyers__c, 'Le total des loyers dans le rendement n\'a pas été mis à jour');
-        System.assertEquals(120, rendement.Total_Charges__c, 'Le total des charges dans le rendement n\'a pas été mis à jour');
+        System.assertEquals(120, rendement.Total_Charges_Percues__c, 'Le total des charges dans le rendement n\'a pas été mis à jour');
     }
 }

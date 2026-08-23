@@ -4,6 +4,9 @@
  * @date Avril 2025
  */
 trigger PaiementTrigger on Paiement__c (after insert, after update) {
+    if (Triggers.isBypassed('PaiementTrigger')) {
+        return;
+    }
     // Traitement après insertion ou mise à jour
     if (Trigger.isAfter) {
         // Génération automatique de quittance lorsqu'un paiement passe à "Encaissé"
@@ -32,23 +35,27 @@ trigger PaiementTrigger on Paiement__c (after insert, after update) {
         }
         
         // Mise à jour du rendement pour les paiements insérés ou mis à jour
-        Set<Id> bienIds = new Set<Id>();
-        Set<String> annees = new Set<String>();
-        
+        Set<Id> bailIds = new Set<Id>();
         for (Paiement__c paiement : Trigger.new) {
-            // Récupérer l'ID du bien et l'année concernée
             if (paiement.Bail__c != null) {
-                // Récupérer l'ID du bien via une requête SOQL
-                List<Bail__c> baux = [SELECT Bien_Locatif__c FROM Bail__c WHERE Id = :paiement.Bail__c LIMIT 1];
-                if (!baux.isEmpty()) {
-                    bienIds.add(baux[0].Bien_Locatif__c);
-                    annees.add(paiement.Annee_Concernee__c);
-                }
+                bailIds.add(paiement.Bail__c);
             }
         }
         
-        // Mettre à jour le rendement pour chaque bien et chaque année
-        if (!bienIds.isEmpty() && !annees.isEmpty()) {
+        if (!bailIds.isEmpty()) {
+            Map<Id, Bail__c> bauxMap = new Map<Id, Bail__c>([SELECT Id, Bien_Locatif__c FROM Bail__c WHERE Id IN :bailIds]);
+            Set<Id> bienIds = new Set<Id>();
+            Set<String> annees = new Set<String>();
+            
+            for (Paiement__c paiement : Trigger.new) {
+                if (paiement.Bail__c != null && bauxMap.containsKey(paiement.Bail__c)) {
+                    bienIds.add(bauxMap.get(paiement.Bail__c).Bien_Locatif__c);
+                    if (paiement.Annee_Concernee__c != null) {
+                        annees.add(paiement.Annee_Concernee__c);
+                    }
+                }
+            }
+            
             for (Id bienId : bienIds) {
                 for (String annee : annees) {
                     try {

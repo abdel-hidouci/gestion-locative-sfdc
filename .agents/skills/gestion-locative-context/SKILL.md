@@ -13,6 +13,7 @@ Ce skill documente l'architecture, le modèle de données, les règles métier e
 
 - **Org par défaut** : `gestion-locative` (Username : `hbespoir2003@gmail.com`)
 - **Type d'org** : Developer Edition / Scratch sans source tracking (`--no-track-source`).
+- **Connecteur MCP** : `DX gestion locative` (`@salesforce/mcp@latest`) configuré sur l'org par défaut avec l'ensemble des toolsets activés (`all`).
 - **Structure SFDX** : Format Source (`force-app/main/default`).
 - **API Version** : `58.0`
 - **Manifest** : `manifest/package.xml` configuré pour cibler précisément les 7 objets personnalisés, champs, layouts, permission sets, classes, triggers, LWC, pages VF, flows, actions et rapports du projet.

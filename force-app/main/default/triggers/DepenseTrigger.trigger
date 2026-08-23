@@ -4,6 +4,9 @@
  * @date Avril 2025
  */
 trigger DepenseTrigger on Depense__c (after insert, after update, after delete) {
+    if (Triggers.isBypassed('DepenseTrigger')) {
+        return;
+    }
     // Traitement après insertion, mise à jour ou suppression
     if (Trigger.isAfter) {
         Set<Id> bienIds = new Set<Id>();
