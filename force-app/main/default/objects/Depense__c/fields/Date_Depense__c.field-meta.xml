@@ -3,8 +3,7 @@
     <fullName>Date_Depense__c</fullName>
     <externalId>false</externalId>
     <label>Date Dépense</label>
-    <type>Date</type>
     <required>false</required>
-    <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
+    <type>Date</type>
 </CustomField>

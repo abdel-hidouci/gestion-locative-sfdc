@@ -3,9 +3,9 @@
     <fullName>Statut_Icon__c</fullName>
     <externalId>false</externalId>
     <formula>IF(
-    ISPICKVAL(Statut__c, 'Payé'),
-    IMAGE('/img/samples/flag_green.gif', 'Payé', 16, 16),
-    IMAGE('/img/samples/flag_red.gif', 'A payer', 16, 16)
+    ISPICKVAL(Statut__c, &apos;Payé&apos;),
+    IMAGE(&apos;/img/samples/flag_green.gif&apos;, &apos;Payé&apos;, 16, 16),
+    IMAGE(&apos;/img/samples/flag_red.gif&apos;, &apos;A payer&apos;, 16, 16)
 )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Statut Icon</label>

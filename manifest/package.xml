@@ -6,10 +6,6 @@
     </types>
     <types>
         <members>*</members>
-        <name>ApexComponent</name>
-    </types>
-    <types>
-        <members>*</members>
         <name>ApexPage</name>
     </types>
     <types>
@@ -18,53 +14,105 @@
     </types>
     <types>
         <members>*</members>
-        <name>AuraDefinitionBundle</name>
-    </types>
-    <types>
-        <members>*</members>
         <name>LightningComponentBundle</name>
     </types>
     <types>
-        <members>*</members>
+        <members>Bail__c</members>
+        <members>Bien_Locatif__c</members>
+        <members>Depense__c</members>
+        <members>Locataire__c</members>
+        <members>Paiement__c</members>
+        <members>Quittance__c</members>
+        <members>Rendement__c</members>
         <name>CustomObject</name>
     </types>
     <types>
-        <members>*</members>
+        <members>Bail__c-Bail Layout</members>
+        <members>Bien_Locatif__c-Bien Locatif Layout</members>
+        <members>Depense__c-Autre</members>
+        <members>Depense__c-Charge Copro</members>
+        <members>Depense__c-Crédit Immobilier</members>
+        <members>Depense__c-Depense Layout</members>
+        <members>Locataire__c-Locataire Layout</members>
+        <members>Paiement__c-Paiement Layout</members>
+        <members>Quittance__c-Quittance Layout</members>
+        <members>Rendement__c-Rendement Layout</members>
         <name>Layout</name>
     </types>
     <types>
-        <members>*</members>
+        <members>Bail__c</members>
+        <members>Bien_Locatif__c</members>
+        <members>Depense__c</members>
+        <members>Locataire__c</members>
+        <members>Paiement__c</members>
+        <members>Quittance__c</members>
+        <members>Rendement__c</members>
         <name>CustomTab</name>
     </types>
     <types>
-        <members>*</members>
+        <members>Gestion_Locative</members>
         <name>CustomApplication</name>
     </types>
     <types>
-        <members>*</members>
-        <name>PermissionSet</name>
-    </types>
-    <types>
-        <members>*</members>
+        <members>QuittancesLoyer</members>
+        <members>QuittancesLoyer/EnvoiQuittanceLoyer</members>
         <name>EmailTemplate</name>
     </types>
     <types>
-        <members>*</members>
-        <name>StaticResource</name>
-    </types>
-    <types>
-        <members>*</members>
+        <members>Gestion_Locative_Home_Page</members>
+        <members>Gestion_Locative_UtilityBar</members>
+        <members>Paiement_Record_Page</members>
         <name>FlexiPage</name>
     </types>
     <types>
-        <members>Bien_Locatif__c</members>
-        <members>Locataire__c</members>
-        <members>Bail__c</members>
-        <members>Paiement__c</members>
-        <members>Depense__c</members>
-        <members>Quittance__c</members>
-        <members>Rendement__c</members>
+        <members>Cloner_les_paiements</members>
+        <members>clone_depenses</members>
+        <name>Flow</name>
+    </types>
+    <types>
+        <members>Bail__c.Cloner_les_paiements</members>
+        <members>Bien_Locatif__c.clone_depenses</members>
+        <name>QuickAction</name>
+    </types>
+    <types>
+        <members>DpensesAnnuelles</members>
+        <members>DpensesAnnuelles/Dpensee_Annee_en_cours</members>
+        <members>DpensesAnnuelles/X12_Rue_de_la_mlonnire_Dpensee_Anne_2he</members>
+        <members>DpensesAnnuelles/X125_AV_P_Georges_PompidoDpensee_Anne_BZV</members>
+        <members>DpensesAnnuelles/X2_Rue_henri_dunant_Dpensee_Anne_wBG</members>
+        <members>DpensesAnnuelles/X8_rue_de_metz_Dpensee_Anne_ECr</members>
+        <members>RecettesAnnuelles</members>
+        <members>RecettesAnnuelles/X12_Rue_de_la_mlonnire_Recettes_833</members>
+        <members>RecettesAnnuelles/X125_AV_Prsident_george_pompi_Recettes_v35</members>
+        <members>RecettesAnnuelles/X2_Rue_henri_dunant_Recettes_jyl</members>
+        <members>RecettesAnnuelles/X2_Rue_henri_dunantParking_Recettes_PCN</members>
+        <members>RecettesAnnuelles/X8_rue_de_metz_Parking_Recettes_cBG</members>
+        <members>RecettesAnnuelles/X8_rue_de_metz_Recettes_q5n</members>
+        <members>RecettesAnnuelles/X87_rue_Galienni_Recettes_44a</members>
+        <name>Report</name>
+    </types>
+    <types>
+        <members>Bail__c.All</members>
+        <members>Bien_Locatif__c.All</members>
+        <members>Locataire__c.All</members>
+        <members>Depense__c.AH</members>
+        <members>Depense__c.ALL</members>
+        <members>Depense__c.X125_AV_Pr_sident_george_pompidou</members>
+        <members>Depense__c.X12_Rue_de_la_m_lonni_re</members>
+        <members>Depense__c.X2_Rue_henri_dunant</members>
+        <members>Depense__c.X87_rue_Galienni</members>
+        <members>Depense__c.X8_rue_de_metz</members>
+        <members>Paiement__c.All</members>
+        <members>Paiement__c.X125_AV_Pr_sident_george_pompidou</members>
+        <members>Paiement__c.X12_Rue_de_la_m_lonni_re</members>
+        <members>Paiement__c.X2_Rue_henri_dunant</members>
+        <members>Paiement__c.X2_Rue_henri_dunant_Parking</members>
+        <members>Paiement__c.X87_rue_Gallieni</members>
+        <members>Paiement__c.X8_rue_de_metz</members>
+        <members>Paiement__c.X8_rue_de_metz_Parking</members>
+        <members>Quittance__c.All</members>
+        <members>Rendement__c.All</members>
         <name>ListView</name>
     </types>
-    <version>57.0</version>
+    <version>58.0</version>
 </Package>

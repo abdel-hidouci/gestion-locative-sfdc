@@ -51,7 +51,7 @@
         <name>sidebar</name>
         <type>Region</type>
     </flexiPageRegions>
-    <masterLabel>Page d'accueil Gestion Locative</masterLabel>
+    <masterLabel>Page d&apos;accueil Gestion Locative</masterLabel>
     <parentFlexiPage>home__desktopDefault</parentFlexiPage>
     <template>
         <name>home:desktopTemplate</name>

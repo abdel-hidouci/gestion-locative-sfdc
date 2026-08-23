@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>X125_AV_Pr_sident_george_pompidou</fullName>
+    <columns>Statut_Icon__c</columns>
+    <columns>NAME</columns>
+    <columns>Annee_Fiscale__c</columns>
+    <columns>Bien_Locatif__c</columns>
+    <columns>Montant__c</columns>
+    <columns>RECORDTYPE</columns>
+    <columns>Nature__c</columns>
+    <columns>Date_Depense__c</columns>
+    <columns>Statut__c</columns>
+    <columns>Montant_Total__c</columns>
+    <columns>Frequence__c</columns>
+    <columns>Description__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Annee_Fiscale__c</field>
+        <operation>equals</operation>
+        <value>2026</value>
+    </filters>
+    <filters>
+        <field>Bien_Locatif__c</field>
+        <operation>equals</operation>
+        <value>125 AV Président george pompidou</value>
+    </filters>
+    <filters>
+        <field>Statut__c</field>
+        <operation>equals</operation>
+        <value>A payer</value>
+    </filters>
+    <label>125 AV Président george pompidou</label>
+</ListView>

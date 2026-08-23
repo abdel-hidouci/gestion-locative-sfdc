@@ -3,9 +3,4 @@
     <apiVersion>58.0</apiVersion>
     <description>Template pour les quittances de loyer</description>
     <label>QuittanceTemplate</label>
-    <packageVersions>
-        <majorNumber>1</majorNumber>
-        <minorNumber>7</minorNumber>
-        <namespace>sf_com_apps</namespace>
-    </packageVersions>
 </ApexComponent>

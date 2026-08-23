@@ -3,8 +3,7 @@
     <fullName>Date_Envoi_Email__c</fullName>
     <externalId>false</externalId>
     <label>Date Envoi Email</label>
-    <type>DateTime</type>
     <required>false</required>
-    <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
+    <type>DateTime</type>
 </CustomField>

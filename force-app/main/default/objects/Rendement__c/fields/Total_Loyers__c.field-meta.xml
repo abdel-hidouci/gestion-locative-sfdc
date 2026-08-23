@@ -3,10 +3,9 @@
     <fullName>Total_Loyers__c</fullName>
     <externalId>false</externalId>
     <label>Total Loyers</label>
-    <type>Currency</type>
     <precision>18</precision>
-    <scale>2</scale>
     <required>false</required>
-    <trackHistory>false</trackHistory>
+    <scale>2</scale>
     <trackTrending>false</trackTrending>
+    <type>Currency</type>
 </CustomField>

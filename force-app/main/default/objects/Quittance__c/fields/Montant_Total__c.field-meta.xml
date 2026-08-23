@@ -1,11 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Montant_Total__c</fullName>
     <externalId>false</externalId>
     <label>Montant Total</label>
-    <type>Currency</type>
     <precision>18</precision>
-    <scale>2</scale>
     <required>false</required>
-    <trackHistory>false</trackHistory>
+    <scale>2</scale>
     <trackTrending>false</trackTrending>
+    <type>Currency</type>
 </CustomField>

@@ -3,9 +3,13 @@
     <fullName>Type_Bail__c</fullName>
     <externalId>false</externalId>
     <label>Type Bail</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
         <valueSetDefinition>
+            <sorted>false</sorted>
             <value>
                 <fullName>Habitation</fullName>
                 <default>false</default>
@@ -13,7 +17,4 @@
             </value>
         </valueSetDefinition>
     </valueSet>
-    <required>false</required>
-    <trackHistory>false</trackHistory>
-    <trackTrending>false</trackTrending>
 </CustomField>

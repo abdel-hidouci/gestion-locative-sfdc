@@ -3,4 +3,45 @@
     <fullName>Charge_Copro</fullName>
     <active>true</active>
     <label>Charge Copro</label>
+    <picklistValues>
+        <picklist>Frequence__c</picklist>
+        <values>
+            <fullName>Trimestrielle</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Nature__c</picklist>
+        <values>
+            <fullName>Assurance PNO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CFE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CGA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Comptabilité</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Taxe foncière</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Statut__c</picklist>
+        <values>
+            <fullName>A payer</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Payé</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
 </RecordType>

@@ -7,6 +7,7 @@
     &apos;Autre&apos;, Montant__c,
     &apos;Charge_Copro&apos;, Montant_Charge_Copro__c + Montant_Fonds_Travaux_loi_Alur__c,
     &apos;Credit_Immobilier&apos;, Montant_Capital__c + Montant_Interets__c + Montant_Assurance_Pret__c,
+    &apos;Credit_Immobilier_Travaux&apos;, Montant_Capital__c + Montant_Interets__c + Montant_Assurance_Pret__c,
     0
 )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>

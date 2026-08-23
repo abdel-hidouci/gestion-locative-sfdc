@@ -3,9 +3,9 @@
     <fullName>Fichier_PDF__c</fullName>
     <externalId>false</externalId>
     <label>Fichier PDF</label>
-    <type>Text</type>
     <length>255</length>
     <required>false</required>
-    <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>
