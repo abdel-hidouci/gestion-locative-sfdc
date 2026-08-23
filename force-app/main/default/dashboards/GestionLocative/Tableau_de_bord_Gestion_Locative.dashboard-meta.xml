@@ -7,8 +7,6 @@
     <colorPalette>unity</colorPalette>
     <dashboardChartTheme>light</dashboardChartTheme>
     <dashboardColorPalette>unity</dashboardColorPalette>
-    
-    <!-- Filtres du Dashboard -->
     <dashboardFilters>
         <dashboardFilterOptions>
             <operator>equals</operator>
@@ -32,7 +30,6 @@
         </dashboardFilterOptions>
         <name>Année Fiscale / Échéance</name>
     </dashboardFilters>
-    
     <dashboardFilters>
         <dashboardFilterOptions>
             <operator>equals</operator>
@@ -64,9 +61,7 @@
         </dashboardFilterOptions>
         <name>Bien Immobilier</name>
     </dashboardFilters>
-
     <dashboardGridLayout>
-        <!-- LIGNE 0 : 4 Cartes KPI / Métriques Clés en grand format -->
         <dashboardGridComponents>
             <colSpan>3</colSpan>
             <columnIndex>0</columnIndex>
@@ -85,6 +80,7 @@
                     <column>Paiement__c.Bien_Locatif__c</column>
                 </dashboardFilterColumns>
                 <displayUnits>Auto</displayUnits>
+                <groupingSortProperties/>
                 <header>Loyers Bruts Annuels</header>
                 <indicatorHighColor>#00716B</indicatorHighColor>
                 <indicatorLowColor>#C23934</indicatorLowColor>
@@ -95,7 +91,6 @@
             <rowIndex>0</rowIndex>
             <rowSpan>3</rowSpan>
         </dashboardGridComponents>
-
         <dashboardGridComponents>
             <colSpan>3</colSpan>
             <columnIndex>3</columnIndex>
@@ -114,6 +109,7 @@
                     <column>Paiement__c.Bien_Locatif__c</column>
                 </dashboardFilterColumns>
                 <displayUnits>Auto</displayUnits>
+                <groupingSortProperties/>
                 <header>Loyers Encaissés (Nets)</header>
                 <indicatorHighColor>#00716B</indicatorHighColor>
                 <indicatorLowColor>#C23934</indicatorLowColor>
@@ -124,7 +120,6 @@
             <rowIndex>0</rowIndex>
             <rowSpan>3</rowSpan>
         </dashboardGridComponents>
-
         <dashboardGridComponents>
             <colSpan>3</colSpan>
             <columnIndex>6</columnIndex>
@@ -143,6 +138,7 @@
                     <column>FK_NAME</column>
                 </dashboardFilterColumns>
                 <displayUnits>Auto</displayUnits>
+                <groupingSortProperties/>
                 <header>Total Dépenses Décaissées</header>
                 <indicatorHighColor>#C23934</indicatorHighColor>
                 <indicatorLowColor>#00716B</indicatorLowColor>
@@ -153,7 +149,6 @@
             <rowIndex>0</rowIndex>
             <rowSpan>3</rowSpan>
         </dashboardGridComponents>
-
         <dashboardGridComponents>
             <colSpan>3</colSpan>
             <columnIndex>9</columnIndex>
@@ -172,6 +167,7 @@
                     <column>FK_NAME</column>
                 </dashboardFilterColumns>
                 <displayUnits>Auto</displayUnits>
+                <groupingSortProperties/>
                 <header>Capital Amorti (Enrichissement)</header>
                 <indicatorHighColor>#00716B</indicatorHighColor>
                 <indicatorLowColor>#C23934</indicatorLowColor>
@@ -182,14 +178,12 @@
             <rowIndex>0</rowIndex>
             <rowSpan>3</rowSpan>
         </dashboardGridComponents>
-
-        <!-- LIGNE 1 : Grands Graphiques Circulaires (Donuts avec Légendes et Totaux) -->
         <dashboardGridComponents>
             <colSpan>6</colSpan>
             <columnIndex>0</columnIndex>
             <dashboardComponent>
                 <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
-                <chartAxisRange>auto</chartAxisRange>
+                <chartAxisRange>Auto</chartAxisRange>
                 <chartSummary>
                     <aggregate>Sum</aggregate>
                     <axisBinding>y</axisBinding>
@@ -221,13 +215,12 @@
             <rowIndex>3</rowIndex>
             <rowSpan>7</rowSpan>
         </dashboardGridComponents>
-
         <dashboardGridComponents>
             <colSpan>6</colSpan>
             <columnIndex>6</columnIndex>
             <dashboardComponent>
                 <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
-                <chartAxisRange>auto</chartAxisRange>
+                <chartAxisRange>Auto</chartAxisRange>
                 <chartSummary>
                     <aggregate>Sum</aggregate>
                     <axisBinding>y</axisBinding>
@@ -259,14 +252,12 @@
             <rowIndex>3</rowIndex>
             <rowSpan>7</rowSpan>
         </dashboardGridComponents>
-
-        <!-- LIGNE 2 : Grands Graphiques Analytiques (Barres & Colonnes Spacieuses) -->
         <dashboardGridComponents>
             <colSpan>6</colSpan>
             <columnIndex>0</columnIndex>
             <dashboardComponent>
                 <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
-                <chartAxisRange>auto</chartAxisRange>
+                <chartAxisRange>Auto</chartAxisRange>
                 <chartSummary>
                     <aggregate>Sum</aggregate>
                     <axisBinding>y</axisBinding>
@@ -295,6 +286,7 @@
                 <legendPosition>Bottom</legendPosition>
                 <report>GestionLocative/Depenses_et_Amortissement_par_Bien</report>
                 <showPercentage>false</showPercentage>
+                <showPicturesOnCharts>false</showPicturesOnCharts>
                 <showValues>true</showValues>
                 <sortBy>RowValueDescending</sortBy>
                 <useReportChart>false</useReportChart>
@@ -302,13 +294,12 @@
             <rowIndex>10</rowIndex>
             <rowSpan>8</rowSpan>
         </dashboardGridComponents>
-
         <dashboardGridComponents>
             <colSpan>6</colSpan>
             <columnIndex>6</columnIndex>
             <dashboardComponent>
                 <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
-                <chartAxisRange>auto</chartAxisRange>
+                <chartAxisRange>Auto</chartAxisRange>
                 <chartSummary>
                     <aggregate>Sum</aggregate>
                     <axisBinding>y</axisBinding>
@@ -344,8 +335,6 @@
             <rowIndex>10</rowIndex>
             <rowSpan>8</rowSpan>
         </dashboardGridComponents>
-
-        <!-- LIGNE 3 : Tableaux Détaillés et Lisibles -->
         <dashboardGridComponents>
             <colSpan>6</colSpan>
             <columnIndex>0</columnIndex>
@@ -396,13 +385,13 @@
                     </flexTableSortInfo>
                     <hideChatterPhotos>true</hideChatterPhotos>
                 </flexComponentProperties>
+                <groupingSortProperties/>
                 <header>Synthèse Financière des Recettes Locatives</header>
                 <report>GestionLocative/Synthese_Loyers_par_Bien</report>
             </dashboardComponent>
             <rowIndex>18</rowIndex>
             <rowSpan>8</rowSpan>
         </dashboardGridComponents>
-
         <dashboardGridComponents>
             <colSpan>6</colSpan>
             <columnIndex>6</columnIndex>
@@ -453,13 +442,13 @@
                     </flexTableSortInfo>
                     <hideChatterPhotos>true</hideChatterPhotos>
                 </flexComponentProperties>
+                <groupingSortProperties/>
                 <header>Synthèse des Charges &amp; Amortissements</header>
                 <report>GestionLocative/Depenses_et_Amortissement_par_Bien</report>
             </dashboardComponent>
             <rowIndex>18</rowIndex>
             <rowSpan>8</rowSpan>
         </dashboardGridComponents>
-
         <numberOfColumns>12</numberOfColumns>
         <rowHeight>36</rowHeight>
     </dashboardGridLayout>
