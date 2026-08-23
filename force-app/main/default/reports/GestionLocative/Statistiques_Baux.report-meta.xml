@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
-    <chart>
-        <backgroundColor1>#FFFFFF</backgroundColor1>
-        <backgroundColor2>#FFFFFF</backgroundColor2>
-        <backgroundFadeDir>Diagonal</backgroundFadeDir>
-        <chartSummaries>
-            <aggregate>Sum</aggregate>
-            <axisBinding>y</axisBinding>
-            <column>FORMULA1</column>
-        </chartSummaries>
-        <chartType>VerticalColumn</chartType>
-        <enableHoverLabels>true</enableHoverLabels>
-        <groupingColumn>Bail__c.Date_Debut__c</groupingColumn>
-        <expandOthers>true</expandOthers>
-        <legendPosition>Right</legendPosition>
-        <showValues>true</showValues>
-        <title>Statistiques des Baux</title>
-    </chart>
+
     <columns>
         <field>CUST_NAME</field>
     </columns>

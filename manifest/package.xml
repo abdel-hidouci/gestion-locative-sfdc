@@ -93,7 +93,21 @@
         <members>RecettesAnnuelles/X8_rue_de_metz_Parking_Recettes_cBG</members>
         <members>RecettesAnnuelles/X8_rue_de_metz_Recettes_q5n</members>
         <members>RecettesAnnuelles/X87_rue_Galienni_Recettes_44a</members>
+        <members>GestionLocative</members>
+        <members>GestionLocative/Synthese_Loyers_par_Bien</members>
+        <members>GestionLocative/Structure_Depenses_par_Poste</members>
+        <members>GestionLocative/Depenses_et_Amortissement_par_Bien</members>
+        <members>GestionLocative/Chronologie_Mensuelle_Paiements</members>
+        <members>GestionLocative/Statut_des_Paiements_Recettes</members>
+        <members>GestionLocative/Baux_Actifs_et_Occupancy</members>
+        <members>GestionLocative/Rendements_Annuels_par_Bien</members>
+        <members>GestionLocative/Statistiques_Baux</members>
         <name>Report</name>
+    </types>
+    <types>
+        <members>GestionLocative</members>
+        <members>GestionLocative/Tableau_de_bord_Gestion_Locative</members>
+        <name>Dashboard</name>
     </types>
     <types>
         <members>Bail__c.All</members>
