@@ -42,6 +42,41 @@ erDiagram
 
 ---
 
+### 📋 Référentiel des Biens & Contrats Bancaires / Mandats
+
+| Bien Immobilier | Mode de Gestion | Réf. Mandat (`NumeroMandat__c`) | Prêt Immobilier (`NumeroPretImmo__c`) | Prêt Travaux (`NumeroPretTravaux__c`) | Assurance PNO (`Description__c`) |
+| :--- | :--- | :---: | :---: | :---: | :---: |
+| **8 rue de metz** | Mandat GFF | `22-92-371` | `10278 06086 000208129 03` | — | `BV000000006081969` |
+| **12 Rue de la mélonnière** | Mandat GFF | `24-92-1047` | `10278 06086 000212875 01` | — | `BV000000006092912` |
+| **125 AV Prés. G. Pompidou** | Mandat GFF | `24-92-1297` | `10278 06086 000208129 08` | — | `BV000000006010866` |
+| **2 Rue henri dunant** | Mandat GFF | `25-92-1443` | `10278 06086 000212875 02` | `10278 06086 000208129 11` | `BV000000006134411` |
+| **87 rue Galienni** | Gestion Directe | *Aucun* | `10278 06086 000208129 07` | — | `BV000000006002420` |
+| **8 rue de metz - Parking** | Gestion Directe | *Aucun* | — | — | — |
+| **2 Rue dunant - Parking** | Gestion Directe | *Aucun* | — | — | — |
+
+---
+
+### 🔄 Guide Opérationnel : Clôture & Rapprochement Mensuel
+
+Chaque mois, le rapprochement bancaire et comptable suit la procédure ci-dessous :
+
+1. **Loyers Directs** :
+   * Sur `Paiement__c`, passer `Statut__c = 'Encaissé'` avec la `Date_Encaissement__c`. La `Quittance__c` PDF est émise automatiquement.
+2. **Comptes Rendus de Gestion Agence (GFF)** :
+   * Identifier le mandat (`Bail__r.NumeroMandat__c`).
+   * **Dépense Honoraires** : Ajuster `Montant__c` (= total débit honoraires TTC) et passer à **Payé**.
+   * **Paiement Loyer** : Ajuster `Montant_Loyer__c` et `Montant_Charges__c`, lier `Depense__c`. Le net encaissé propriétaire (`MontantEncaisse__c`) et les frais (`FraisAgence__c`) se calculent automatiquement. Passer à **Encaissé**.
+3. **Assurances PNO** :
+   * Identifier la dépense via le contrat `BV...` dans `Description__c`.
+   * Ajuster le montant réel prélevé et la date, passer à **Payé**.
+4. **Crédits Immobiliers & Travaux (Crédit Mutuel)** :
+   * Identifier la dépense grâce au N° de contrat (`NumeroContratPret__c`).
+   * Renseigner `Montant_Interets__c` et `Montant_Assurance_Pret__c`.
+   * Le capital amorti est calculé : $\text{Montant Capital} = \text{Total Échéance} - \text{Intérêts} - \text{Assurance}$.
+   * Passer à **Payé** pour le prêt immobilier et le prêt travaux.
+
+---
+
 ### Dictionnaire des Objets & Champs Clés
 
 #### 1. `Bien_Locatif__c` (Biens Locatifs)

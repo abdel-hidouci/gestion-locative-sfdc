@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Autorisations complètes pour l'application Gestion Locative</description>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Bien_Locatif__c.NumeroPretImmo__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Bien_Locatif__c.NumeroPretTravaux__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Depense__c.NumeroContratPret__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Gestion Locative</label>
+</PermissionSet>

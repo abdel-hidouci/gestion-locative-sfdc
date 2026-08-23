@@ -54,6 +54,10 @@
         <name>CustomApplication</name>
     </types>
     <types>
+        <members>Gestion_Locative</members>
+        <name>PermissionSet</name>
+    </types>
+    <types>
         <members>QuittancesLoyer</members>
         <members>QuittancesLoyer/EnvoiQuittanceLoyer</members>
         <name>EmailTemplate</name>
