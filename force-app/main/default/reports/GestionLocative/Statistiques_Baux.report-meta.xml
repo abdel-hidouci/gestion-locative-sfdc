@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <aggregate>Sum</aggregate>
+            <axisBinding>y</axisBinding>
+            <column>FORMULA1</column>
+        </chartSummaries>
+        <chartType>VerticalColumn</chartType>
+        <enableHoverLabels>true</enableHoverLabels>
+        <groupingColumn>Bail__c.Date_Debut__c</groupingColumn>
+        <expandOthers>true</expandOthers>
+        <legendPosition>Right</legendPosition>
+        <showValues>true</showValues>
+        <title>Statistiques des Baux</title>
+    </chart>
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>Bail__c.Montant_Loyer__c</field>
+    </columns>
+    <description>Statistiques des baux par mois</description>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Month</dateGranularity>
+        <field>Bail__c.Date_Debut__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Statistiques des Baux</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$Bail__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <timeFrameFilter>
+        <dateColumn>Bail__c.Date_Debut__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+    <aggregates>
+        <calculatedFormula>Bail__c.Montant_Loyer__c:SUM</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA1</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Total Loyers</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+</Report>

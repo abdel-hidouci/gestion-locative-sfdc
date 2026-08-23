@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Locataire__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Locataire associé à la quittance</description>
+    <externalId>false</externalId>
+    <label>Locataire</label>
+    <referenceTo>Locataire__c</referenceTo>
+    <relationshipLabel>Quittances</relationshipLabel>
+    <relationshipName>Quittances</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

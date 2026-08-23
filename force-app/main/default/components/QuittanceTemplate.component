@@ -1,0 +1,73 @@
+<apex:component access="global">
+    <apex:attribute name="quittance" type="Quittance__c" description="Quittance de loyer"/>
+    
+    <div style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px;">
+        <!-- En-tête -->
+        <div style="text-align: center; margin-bottom: 30px;">
+            <h1 style="font-size: 24px; color: #333; margin-bottom: 5px;">QUITTANCE DE LOYER</h1>
+            <p style="font-size: 16px; color: #666;">
+                Période du {!DAY(quittance.Paiement__r.Date_Paiement__c)}/{!MONTH(quittance.Paiement__r.Date_Paiement__c)}/{!YEAR(quittance.Paiement__r.Date_Paiement__c)}
+            </p>
+        </div>
+        
+        <!-- Informations propriétaire -->
+        <div style="margin-bottom: 20px;">
+            <h2 style="font-size: 18px; color: #333; margin-bottom: 10px; border-bottom: 1px solid #ddd; padding-bottom: 5px;">PROPRIÉTAIRE</h2>
+            <p style="margin: 5px 0;">Nom et prénom : {!$Organization.Name}</p>
+            <p style="margin: 5px 0;">Adresse : {!$Organization.Street}, {!$Organization.PostalCode} {!$Organization.City}</p>
+        </div>
+        
+        <!-- Informations locataire -->
+        <div style="margin-bottom: 20px;">
+            <h2 style="font-size: 18px; color: #333; margin-bottom: 10px; border-bottom: 1px solid #ddd; padding-bottom: 5px;">LOCATAIRE</h2>
+            <p style="margin: 5px 0;">Nom et prénom : {!quittance.Paiement__r.Bail__r.Locataire__r.Name}</p>
+        </div>
+        
+        <!-- Informations logement -->
+        <div style="margin-bottom: 20px;">
+            <h2 style="font-size: 18px; color: #333; margin-bottom: 10px; border-bottom: 1px solid #ddd; padding-bottom: 5px;">LOGEMENT</h2>
+            <p style="margin: 5px 0;">Adresse : {!quittance.Paiement__r.Bail__r.Bien_Locatif__r.Adresse__c}</p>
+            <p style="margin: 5px 0;">Type : {!quittance.Paiement__r.Bail__r.Bien_Locatif__r.Type__c}</p>
+        </div>
+        
+        <!-- Détails du paiement -->
+        <div style="margin-bottom: 30px;">
+            <h2 style="font-size: 18px; color: #333; margin-bottom: 10px; border-bottom: 1px solid #ddd; padding-bottom: 5px;">DÉTAILS DU PAIEMENT</h2>
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr style="background-color: #f2f2f2;">
+                    <th style="padding: 10px; text-align: left; border: 1px solid #ddd;">Description</th>
+                    <th style="padding: 10px; text-align: right; border: 1px solid #ddd;">Montant</th>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; text-align: left; border: 1px solid #ddd;">Loyer</td>
+                    <td style="padding: 10px; text-align: right; border: 1px solid #ddd;">{!quittance.Paiement__r.Bail__r.Montant_Loyer__c} €</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; text-align: left; border: 1px solid #ddd;">Charges</td>
+                    <td style="padding: 10px; text-align: right; border: 1px solid #ddd;">{!quittance.Paiement__r.Bail__r.Montant_Charges__c} €</td>
+                </tr>
+                <tr style="font-weight: bold;">
+                    <td style="padding: 10px; text-align: left; border: 1px solid #ddd;">TOTAL</td>
+                    <td style="padding: 10px; text-align: right; border: 1px solid #ddd;">{!quittance.Montant_Total__c} €</td>
+                </tr>
+            </table>
+        </div>
+        
+        <!-- Date de paiement -->
+        <div style="margin-bottom: 20px;">
+            <p style="margin: 5px 0;">Date de paiement : {!DAY(quittance.Paiement__r.Date_Encaissement__c)}/{!MONTH(quittance.Paiement__r.Date_Encaissement__c)}/{!YEAR(quittance.Paiement__r.Date_Encaissement__c)}</p>
+        </div>
+        
+        <!-- Signature -->
+        <div style="margin-top: 40px;">
+            <p style="margin: 5px 0;">Fait à {!$Organization.City}, le {!DAY(quittance.Date_Generation__c)}/{!MONTH(quittance.Date_Generation__c)}/{!YEAR(quittance.Date_Generation__c)}</p>
+            <p style="margin: 20px 0; font-style: italic;">Signature du propriétaire ou de son représentant :</p>
+            <div style="height: 60px;"></div>
+        </div>
+        
+        <!-- Mention légale -->
+        <div style="margin-top: 40px; font-size: 12px; color: #666; border-top: 1px solid #ddd; padding-top: 10px;">
+            <p>Cette quittance annule tous les reçus qui auraient pu être donnés pour acomptes versés au titre du terme qu'elle concerne. Le paiement de la présente quittance ne présume pas du paiement des termes précédents. Conformément à l'article 21 de la loi n° 89-462 du 6 juillet 1989, il est rappelé que le locataire peut demander au bailleur ou à son représentant de lui remettre une quittance gratuitement.</p>
+        </div>
+    </div>
+</apex:component>

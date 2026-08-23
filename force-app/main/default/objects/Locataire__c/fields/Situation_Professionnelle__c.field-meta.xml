@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Situation_Professionnelle__c</fullName>
+    <externalId>false</externalId>
+    <label>Situation Professionnelle</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Salarié</fullName>
+                <default>false</default>
+                <label>Salarié</label>
+            </value>
+            <value>
+                <fullName>Indépendant</fullName>
+                <default>false</default>
+                <label>Indépendant</label>
+            </value>
+            <value>
+                <fullName>Retraité</fullName>
+                <default>false</default>
+                <label>Retraité</label>
+            </value>
+            <value>
+                <fullName>Étudiant</fullName>
+                <default>false</default>
+                <label>Étudiant</label>
+            </value>
+            <value>
+                <fullName>Autre</fullName>
+                <default>false</default>
+                <label>Autre</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Mois_Concerne__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE(
+  MONTH(Periode_Debut__c),
+  1, &quot;Janvier&quot;,
+  2, &quot;Février&quot;,
+  3, &quot;Mars&quot;,
+  4, &quot;Avril&quot;,
+  5, &quot;Mai&quot;,
+  6, &quot;Juin&quot;,
+  7, &quot;Juillet&quot;,
+  8, &quot;Août&quot;,
+  9, &quot;Septembre&quot;,
+  10, &quot;Octobre&quot;,
+  11, &quot;Novembre&quot;,
+  12, &quot;Décembre&quot;,
+  &quot;Mois inconnu&quot;
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Mois Concerné</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

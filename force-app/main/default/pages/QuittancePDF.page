@@ -1,0 +1,21 @@
+<apex:page standardController="Quittance__c" renderAs="pdf" showHeader="false" sidebar="false" standardStylesheets="false" applyBodyTag="false" applyHtmlTag="false">
+    <html>
+        <head>
+            <title>Quittance de Loyer</title>
+            <style type="text/css">
+                @page {
+                    size: A4;
+                    margin: 1cm;
+                }
+                body {
+                    font-family: Arial, sans-serif;
+                    font-size: 12px;
+                    color: #333;
+                }
+            </style>
+        </head>
+        <body>
+            <c:QuittanceTemplate quittance="{!Quittance__c}" />
+        </body>
+    </html>
+</apex:page>

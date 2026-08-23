@@ -1,0 +1,11 @@
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Rendement_Net__c</fullName>
+    <externalId>false</externalId>
+    <label>Rendement Net</label>
+    <type>Percent</type>
+    <precision>3</precision>
+    <scale>2</scale>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+</CustomField>

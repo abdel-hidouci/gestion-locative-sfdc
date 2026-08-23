@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Modèle d'email pour l'envoi des quittances de loyer</description>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Envoi Quittance de Loyer</name>
+    <style>none</style>
+    <subject>Quittance de loyer - {!Quittance__c.Bien_Locatif__c} - {!MONTH(Quittance__c.Periode_Debut__c)}/{!YEAR(Quittance__c.Periode_Debut__c)}</subject>
+    <type>text</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

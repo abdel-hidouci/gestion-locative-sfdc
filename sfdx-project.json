@@ -1,12 +1,17 @@
 {
-  "packageDirectories": [
-    {
-      "path": "force-app",
-      "default": true
+    "packageDirectories": [
+        {
+            "path": "force-app",
+            "default": true,
+            "package": "GestionLocative",
+            "versionName": "Version 1.0",
+            "versionNumber": "1.0.0.NEXT"
+        }
+    ],
+    "namespace": "",
+    "sfdcLoginUrl": "https://login.salesforce.com",
+    "sourceApiVersion": "58.0",
+    "packageAliases": {
+        "GestionLocative": "0Ho000000000000"
     }
-  ],
-  "name": "gestion-locative-sfdc",
-  "namespace": "",
-  "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "62.0"
 }

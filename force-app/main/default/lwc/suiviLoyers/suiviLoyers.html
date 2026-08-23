@@ -1,0 +1,152 @@
+<template>
+    <lightning-card title="Suivi des Loyers" icon-name="standard:currency">
+        <div class="slds-m-around_medium">
+            <!-- Filtres -->
+            <div class="slds-grid slds-gutters slds-m-bottom_medium">
+                <div class="slds-col">
+                    <lightning-combobox
+                        label="Mois"
+                        value={moisSelectionne}
+                        options={moisOptions}
+                        onchange={handleMoisChange}
+                    ></lightning-combobox>
+                </div>
+                <div class="slds-col">
+                    <lightning-combobox
+                        label="Année"
+                        value={anneeSelectionnee}
+                        options={anneeOptions}
+                        onchange={handleAnneeChange}
+                    ></lightning-combobox>
+                </div>
+            </div>
+            
+            <!-- Tableau des paiements -->
+            <div if:true={isLoading} class="slds-is-relative slds-m-top_large">
+                <lightning-spinner alternative-text="Chargement" size="medium"></lightning-spinner>
+            </div>
+            
+            <div if:false={isLoading}>
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Bien">Bien</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Locataire">Locataire</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Loyer">Loyer</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Charges">Charges</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Total">Total</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Statut">Statut</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Date de paiement">Date de paiement</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Actions">Actions</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={paiements} for:item="paiement">
+                            <tr key={paiement.id} class="slds-hint-parent">
+                                <td data-label="Bien">
+                                    <div class="slds-truncate" title={paiement.bien}>{paiement.bien}</div>
+                                </td>
+                                <td data-label="Locataire">
+                                    <div class="slds-truncate" title={paiement.locataire}>{paiement.locataire}</div>
+                                </td>
+                                <td data-label="Loyer">
+                                    <div class="slds-truncate" title={paiement.montantLoyer}>{paiement.montantLoyer} €</div>
+                                </td>
+                                <td data-label="Charges">
+                                    <div class="slds-truncate" title={paiement.montantCharges}>{paiement.montantCharges} €</div>
+                                </td>
+                                <td data-label="Total">
+                                    <div class="slds-truncate" title={paiement.montantTotal}><strong>{paiement.montantTotal} €</strong></div>
+                                </td>
+                                <td data-label="Statut">
+                                    <div class={paiement.classeStatut} title={paiement.statut}>{paiement.statut}</div>
+                                </td>
+                                <td data-label="Date de paiement">
+                                    <div class="slds-truncate" title={paiement.datePaiement}>{paiement.datePaiement}</div>
+                                </td>
+                                <td data-label="Actions">
+                                    <template if:true={paiement.statut}>
+                                        <template if:true={paiement.statut.isEnAttente}>
+                                            <lightning-button-group>
+                                                <lightning-button 
+                                                    label="Encaisser" 
+                                                    variant="brand" 
+                                                    data-id={paiement.id} 
+                                                    onclick={handleEncaisserPaiement}>
+                                                </lightning-button>
+                                            </lightning-button-group>
+                                        </template>
+                                        <template if:true={paiement.statut.isEncaisse}>
+                                            <lightning-button-group>
+                                                <lightning-button 
+                                                    label="Générer quittance" 
+                                                    variant="success" 
+                                                    data-id={paiement.id} 
+                                                    onclick={handleGenererQuittance}>
+                                                </lightning-button>
+                                                <lightning-button 
+                                                    label="Envoyer par email" 
+                                                    variant="neutral" 
+                                                    data-id={paiement.id} 
+                                                    onclick={handleEnvoyerQuittance}>
+                                                </lightning-button>
+                                            </lightning-button-group>
+                                        </template>
+                                    </template>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                    <tfoot>
+                        <tr class="slds-line-height_reset">
+                            <td colspan="2">
+                                <strong>TOTAL</strong>
+                            </td>
+                            <td>
+                                <strong>{totalLoyers} €</strong>
+                            </td>
+                            <td>
+                                <strong>{totalCharges} €</strong>
+                            </td>
+                            <td>
+                                <strong>{totalGeneral} €</strong>
+                            </td>
+                            <td colspan="3"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+                
+                <div class="slds-m-top_medium">
+                    <template if:true={tousEncaisses}>
+                        <div class="slds-notify slds-notify_alert slds-theme_success" role="alert">
+                            <span class="slds-assistive-text">Succès</span>
+                            <h2>Tous les loyers du mois ont été encaissés !</h2>
+                        </div>
+                    </template>
+                    <template if:false={tousEncaisses}>
+                        <div class="slds-notify slds-notify_alert slds-theme_warning" role="alert">
+                            <span class="slds-assistive-text">Attention</span>
+                            <h2>Certains loyers sont encore en attente de paiement.</h2>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+</template>

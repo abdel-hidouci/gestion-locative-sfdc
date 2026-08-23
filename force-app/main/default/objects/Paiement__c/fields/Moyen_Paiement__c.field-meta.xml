@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Moyen_Paiement__c</fullName>
+    <externalId>false</externalId>
+    <label>Moyen de Paiement</label>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <value>
+                <fullName>Virement</fullName>
+                <default>true</default>
+                <label>Virement</label>
+            </value>
+            <value>
+                <fullName>Chèque</fullName>
+                <default>false</default>
+                <label>Chèque</label>
+            </value>
+            <value>
+                <fullName>Espèces</fullName>
+                <default>false</default>
+                <label>Espèces</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+</CustomField>

@@ -1,0 +1,165 @@
+<template>
+    <lightning-card title="Gestion des Baux" icon-name="standard:contract">
+        <div class="slds-m-around_medium">
+            <!-- Filtres -->
+            <div class="slds-grid slds-gutters slds-m-bottom_medium">
+                <div class="slds-col">
+                    <lightning-combobox
+                        label="Statut"
+                        value={statutSelectionne}
+                        options={statutOptions}
+                        onchange={handleStatutChange}
+                    ></lightning-combobox>
+                </div>
+                <div class="slds-col slds-align-bottom">
+                    <div class="slds-grid slds-grid_vertical-align-end">
+                        <div class="slds-badge slds-m-right_small">
+                            <span class="slds-badge__icon slds-badge__icon_left">
+                                <lightning-icon icon-name="utility:check" size="xx-small" alternative-text="Actifs" variant="success"></lightning-icon>
+                            </span>
+                            Actifs: {nombreBauxActifs}
+                        </div>
+                        <div class="slds-badge slds-m-right_small">
+                            <span class="slds-badge__icon slds-badge__icon_left">
+                                <lightning-icon icon-name="utility:warning" size="xx-small" alternative-text="En préavis" variant="warning"></lightning-icon>
+                            </span>
+                            En préavis: {nombreBauxPrevis}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tableau des baux -->
+            <div if:true={isLoading} class="slds-is-relative slds-m-top_large">
+                <lightning-spinner alternative-text="Chargement" size="medium"></lightning-spinner>
+            </div>
+            
+            <div if:false={isLoading}>
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Bien">Bien</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Locataire">Locataire</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Date début">Date début</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Date fin">Date fin</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Loyer">Loyer</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Charges">Charges</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Total">Total</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Statut">Statut</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Actions">Actions</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={baux} for:item="bail">
+                            <tr key={bail.id} class="slds-hint-parent">
+                                <td data-label="Bien">
+                                    <div class="slds-truncate" title={bail.bien}>{bail.bien}</div>
+                                </td>
+                                <td data-label="Locataire">
+                                    <div class="slds-truncate" title={bail.locataire}>{bail.locataire}</div>
+                                </td>
+                                <td data-label="Date début">
+                                    <div class="slds-truncate" title={bail.dateDebut}>{bail.dateDebut}</div>
+                                </td>
+                                <td data-label="Date fin">
+                                    <div class={bail.classeDateFin} title={bail.dateFin}>{bail.dateFin}</div>
+                                </td>
+                                <td data-label="Loyer">
+                                    <div class="slds-truncate" title={bail.loyer}>{bail.loyer} €</div>
+                                </td>
+                                <td data-label="Charges">
+                                    <div class="slds-truncate" title={bail.charges}>{bail.charges} €</div>
+                                </td>
+                                <td data-label="Total">
+                                    <div class="slds-truncate" title={bail.total}><strong>{bail.total} €</strong></div>
+                                </td>
+                                <td data-label="Statut">
+                                    <div class={bail.classeStatut} title={bail.statut}>{bail.statut}</div>
+                                </td>
+                                <td data-label="Actions">
+                                    <template if:true={bail.statut}>
+                                        <template if:true={bail.isActif}>
+                                            <lightning-button-group>
+                                                <lightning-button 
+                                                    label="Résilier" 
+                                                    variant="destructive" 
+                                                    data-id={bail.id} 
+                                                    onclick={handleResilierBail}>
+                                                </lightning-button>
+                                                <lightning-button 
+                                                    label="Renouveler" 
+                                                    variant="success" 
+                                                    data-id={bail.id} 
+                                                    onclick={handleRenouvelerBail}>
+                                                </lightning-button>
+                                            </lightning-button-group>
+                                        </template>
+                                    </template>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                    <tfoot>
+                        <tr class="slds-line-height_reset">
+                            <td colspan="4">
+                                <strong>TOTAL</strong>
+                            </td>
+                            <td>
+                                <strong>{totalLoyers} €</strong>
+                            </td>
+                            <td>
+                                <strong>{totalCharges} €</strong>
+                            </td>
+                            <td>
+                                <strong>{totalGeneral} €</strong>
+                            </td>
+                            <td colspan="2"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Modal de résiliation -->
+        <template if:true={showModal}>
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Fermer" onclick={handleCloseModal}>
+                            <lightning-icon icon-name="utility:close" alternative-text="Fermer" variant="inverse" size="small"></lightning-icon>
+                            <span class="slds-assistive-text">Fermer</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Résiliation de bail</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <p>Êtes-vous sûr de vouloir résilier le bail pour le bien <strong>{bailSelectionne.bien}</strong> loué par <strong>{bailSelectionne.locataire}</strong> ?</p>
+                        <p class="slds-m-top_small">Cette action mettra le bail en préavis.</p>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <button class="slds-button slds-button_neutral" onclick={handleCloseModal}>Annuler</button>
+                        <button class="slds-button slds-button_destructive" onclick={handleConfirmResiliation}>Confirmer la résiliation</button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+    </lightning-card>
+</template>

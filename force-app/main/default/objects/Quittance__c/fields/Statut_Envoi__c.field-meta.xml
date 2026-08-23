@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Statut_Envoi__c</fullName>
+    <externalId>false</externalId>
+    <label>Statut Envoi</label>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <value>
+                <fullName>Non envoyée</fullName>
+                <default>true</default>
+                <label>Non envoyée</label>
+            </value>
+            <value>
+                <fullName>Envoyée par email</fullName>
+                <default>false</default>
+                <label>Envoyée par email</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+</CustomField>

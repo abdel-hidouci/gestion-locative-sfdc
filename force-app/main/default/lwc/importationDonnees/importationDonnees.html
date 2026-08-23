@@ -1,0 +1,183 @@
+<template>
+    <lightning-card title="Importation des données historiques" icon-name="standard:data_import">
+        <div class="slds-m-around_medium">
+            <!-- Indicateur de chargement -->
+            <div if:true={isLoading} class="slds-is-relative slds-m-top_large">
+                <lightning-spinner alternative-text="Chargement" size="medium"></lightning-spinner>
+            </div>
+            
+            <!-- Étapes du processus -->
+            <div class="slds-path">
+                <div class="slds-grid slds-path__track">
+                    <div class="slds-grid slds-path__scroller-container">
+                        <div class="slds-path__scroller">
+                            <div class="slds-path__nav">
+                                <a class={pathClassEtape1} href="javascript:void(0);">
+                                    <span class="slds-path__title">Sélection des fichiers</span>
+                                </a>
+                                <a class={pathClassEtape2} href="javascript:void(0);">
+                                    <span class="slds-path__title">Vérification et importation</span>
+                                </a>
+                                <a class={pathClassEtape3} href="javascript:void(0);">
+                                    <span class="slds-path__title">Résultat</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Étape 1 : Sélection des fichiers -->
+            <div if:true={etape1Active} class="slds-m-top_large">
+                <p class="slds-text-heading_small slds-m-bottom_medium">Sélectionnez les fichiers CSV contenant vos données historiques</p>
+                
+                <div class="slds-grid slds-gutters slds-wrap">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3 slds-m-bottom_medium">
+                        <div class="slds-box slds-box_xx-small">
+                            <div class="slds-text-heading_small slds-m-bottom_small">Biens locatifs</div>
+                            <lightning-input type="file" label="Fichier CSV des biens" accept=".csv" onchange={handleFichierBiens}></lightning-input>
+                            <div class="slds-m-top_small">
+                                <lightning-button label="Télécharger modèle" variant="brand-outline" data-type="Bien_Locatif__c" onclick={handleTelechargerModele}></lightning-button>
+                            </div>
+                            <div if:true={fichiersBiensSelectionnes} class="slds-m-top_small slds-text-color_success">
+                                <lightning-icon icon-name="utility:check" size="x-small" alternative-text="Fichier sélectionné" class="slds-m-right_x-small"></lightning-icon>
+                                Fichier sélectionné : {nomFichierBiens}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3 slds-m-bottom_medium">
+                        <div class="slds-box slds-box_xx-small">
+                            <div class="slds-text-heading_small slds-m-bottom_small">Locataires</div>
+                            <lightning-input type="file" label="Fichier CSV des locataires" accept=".csv" onchange={handleFichierLocataires}></lightning-input>
+                            <div class="slds-m-top_small">
+                                <lightning-button label="Télécharger modèle" variant="brand-outline" data-type="Locataire__c" onclick={handleTelechargerModele}></lightning-button>
+                            </div>
+                            <div if:true={fichiersLocatairesSelectionnes} class="slds-m-top_small slds-text-color_success">
+                                <lightning-icon icon-name="utility:check" size="x-small" alternative-text="Fichier sélectionné" class="slds-m-right_x-small"></lightning-icon>
+                                Fichier sélectionné : {nomFichierLocataires}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3 slds-m-bottom_medium">
+                        <div class="slds-box slds-box_xx-small">
+                            <div class="slds-text-heading_small slds-m-bottom_small">Baux</div>
+                            <lightning-input type="file" label="Fichier CSV des baux" accept=".csv" onchange={handleFichierBaux}></lightning-input>
+                            <div class="slds-m-top_small">
+                                <lightning-button label="Télécharger modèle" variant="brand-outline" data-type="Bail__c" onclick={handleTelechargerModele}></lightning-button>
+                            </div>
+                            <div if:true={fichiersBauxSelectionnes} class="slds-m-top_small slds-text-color_success">
+                                <lightning-icon icon-name="utility:check" size="x-small" alternative-text="Fichier sélectionné" class="slds-m-right_x-small"></lightning-icon>
+                                Fichier sélectionné : {nomFichierBaux}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3 slds-m-bottom_medium">
+                        <div class="slds-box slds-box_xx-small">
+                            <div class="slds-text-heading_small slds-m-bottom_small">Paiements</div>
+                            <lightning-input type="file" label="Fichier CSV des paiements" accept=".csv" onchange={handleFichierPaiements}></lightning-input>
+                            <div class="slds-m-top_small">
+                                <lightning-button label="Télécharger modèle" variant="brand-outline" data-type="Paiement__c" onclick={handleTelechargerModele}></lightning-button>
+                            </div>
+                            <div if:true={fichiersPaiementsSelectionnes} class="slds-m-top_small slds-text-color_success">
+                                <lightning-icon icon-name="utility:check" size="x-small" alternative-text="Fichier sélectionné" class="slds-m-right_x-small"></lightning-icon>
+                                Fichier sélectionné : {nomFichierPaiements}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3 slds-m-bottom_medium">
+                        <div class="slds-box slds-box_xx-small">
+                            <div class="slds-text-heading_small slds-m-bottom_small">Dépenses</div>
+                            <lightning-input type="file" label="Fichier CSV des dépenses" accept=".csv" onchange={handleFichierDepenses}></lightning-input>
+                            <div class="slds-m-top_small">
+                                <lightning-button label="Télécharger modèle" variant="brand-outline" data-type="Depense__c" onclick={handleTelechargerModele}></lightning-button>
+                            </div>
+                            <div if:true={fichiersDepensesSelectionnes} class="slds-m-top_small slds-text-color_success">
+                                <lightning-icon icon-name="utility:check" size="x-small" alternative-text="Fichier sélectionné" class="slds-m-right_x-small"></lightning-icon>
+                                Fichier sélectionné : {nomFichierDepenses}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="slds-m-top_large slds-text-align_right">
+                    <lightning-button label="Suivant" variant="brand" onclick={handleSuivant} disabled={disableSuivantButton}></lightning-button>
+                </div>
+            </div>
+            
+            <!-- Étape 2 : Vérification et importation -->
+            <div if:true={etape2Active} class="slds-m-top_large">
+                <p class="slds-text-heading_small slds-m-bottom_medium">Vérifiez les fichiers sélectionnés et lancez l'importation</p>
+                
+                <div class="slds-box slds-theme_info slds-m-bottom_medium">
+                    <p>
+                        <lightning-icon icon-name="utility:info" size="small" alternative-text="Information" class="slds-m-right_small"></lightning-icon>
+                        L'importation va créer les enregistrements suivants dans Salesforce :
+                    </p>
+                    <ul class="slds-list_dotted slds-m-top_small">
+                        <li>Biens locatifs à partir du fichier {nomFichierBiens}</li>
+                        <li>Locataires à partir du fichier {nomFichierLocataires}</li>
+                        <li>Baux à partir du fichier {nomFichierBaux}</li>
+                        <li>Paiements à partir du fichier {nomFichierPaiements}</li>
+                        <li>Dépenses à partir du fichier {nomFichierDepenses}</li>
+                    </ul>
+                </div>
+                
+                <div class="slds-box slds-theme_warning slds-m-bottom_medium">
+                    <p>
+                        <lightning-icon icon-name="utility:warning" size="small" alternative-text="Avertissement" class="slds-m-right_small"></lightning-icon>
+                        Assurez-vous que les fichiers CSV respectent le format attendu et que les références entre les objets sont correctes.
+                    </p>
+                </div>
+                
+                <div class="slds-m-top_large slds-grid slds-grid_align-spread">
+                    <lightning-button label="Précédent" variant="neutral" onclick={handlePrecedent}></lightning-button>
+                    <lightning-button label="Lancer l'importation" variant="brand" onclick={handleImporter}></lightning-button>
+                </div>
+            </div>
+            
+            <!-- Étape 3 : Résultat -->
+            <div if:true={etape3Active} class="slds-m-top_large">
+                <template if:true={importationReussie}>
+                    <div class="slds-box slds-theme_success slds-m-bottom_medium">
+                        <p>
+                            <lightning-icon icon-name="utility:success" size="small" alternative-text="Succès" class="slds-m-right_small"></lightning-icon>
+                            {resultatImportation.message}
+                        </p>
+                    </div>
+                    
+                    <div class="slds-box slds-m-bottom_medium">
+                        <p class="slds-text-heading_small slds-m-bottom_medium">Résumé de l'importation</p>
+                        <ul class="slds-list_dotted">
+                            <li>Biens locatifs importés : {resultatImportation.biensImportes}</li>
+                            <li>Locataires importés : {resultatImportation.locatairesImportes}</li>
+                            <li>Baux importés : {resultatImportation.bauxImportes}</li>
+                            <li>Paiements importés : {resultatImportation.paiementsImportes}</li>
+                            <li>Dépenses importées : {resultatImportation.depensesImportees}</li>
+                        </ul>
+                    </div>
+                </template>
+                
+                <template if:false={importationReussie}>
+                    <div class="slds-box slds-theme_error slds-m-bottom_medium">
+                        <p>
+                            <lightning-icon icon-name="utility:error" size="small" alternative-text="Erreur" class="slds-m-right_small"></lightning-icon>
+                            {resultatImportation.message}
+                        </p>
+                    </div>
+                    
+                    <div class="slds-m-top_large slds-grid slds-grid_align-spread">
+                        <lightning-button label="Réessayer" variant="neutral" onclick={handlePrecedent}></lightning-button>
+                    </div>
+                </template>
+                
+                <div class="slds-m-top_large slds-text-align_right">
+                    <lightning-button label="Retour à l'accueil" variant="brand" onclick={handleRetourAccueil}></lightning-button>
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+</template>

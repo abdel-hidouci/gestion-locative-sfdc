@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Quittance_Generee__c</fullName>
+    <label>Quittance Générée</label>
+    <type>Checkbox</type>
+    <defaultValue>false</defaultValue>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+</CustomField>

@@ -1,0 +1,139 @@
+<template>
+    <lightning-card title="Rendement Locatif" icon-name="standard:investment_account">
+        <div class="slds-m-around_medium">
+            <!-- Filtres -->
+            <div class="slds-grid slds-gutters slds-m-bottom_medium">
+                <div class="slds-col">
+                    <lightning-combobox
+                        label="Année"
+                        value={anneeSelectionnee}
+                        options={anneeOptions}
+                        onchange={handleAnneeChange}
+                    ></lightning-combobox>
+                </div>
+                <div class="slds-col">
+                    <lightning-combobox
+                        label="Bien"
+                        value={bienSelectionne}
+                        options={bienOptions}
+                        onchange={handleBienChange}
+                    ></lightning-combobox>
+                </div>
+                <div class="slds-col slds-align-bottom">
+                    <lightning-button 
+                        label="Recalculer le rendement" 
+                        variant="brand" 
+                        onclick={handleRecalculerRendement}
+                        class="slds-m-left_x-small"
+                    ></lightning-button>
+                </div>
+            </div>
+            
+            <!-- Indicateurs de rendement -->
+            <div if:true={afficherTous} class="slds-grid slds-gutters slds-m-bottom_medium">
+                <div class="slds-col">
+                    <div class="slds-box slds-theme_shade">
+                        <div class="slds-text-heading_small slds-m-bottom_small">Rendement brut moyen</div>
+                        <div class="slds-text-heading_large slds-text-color_success">{rendementBrutMoyen}%</div>
+                    </div>
+                </div>
+                <div class="slds-col">
+                    <div class="slds-box slds-theme_shade">
+                        <div class="slds-text-heading_small slds-m-bottom_small">Rendement net moyen</div>
+                        <div class="slds-text-heading_large slds-text-color_success">{rendementNetMoyen}%</div>
+                    </div>
+                </div>
+                <div class="slds-col">
+                    <div class="slds-box slds-theme_shade">
+                        <div class="slds-text-heading_small slds-m-bottom_small">Revenu brut total</div>
+                        <div class="slds-text-heading_large">{totalRevenuBrut} €</div>
+                    </div>
+                </div>
+                <div class="slds-col">
+                    <div class="slds-box slds-theme_shade">
+                        <div class="slds-text-heading_small slds-m-bottom_small">Revenu net total</div>
+                        <div class="slds-text-heading_large">{totalRevenuNet} €</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tableau des rendements -->
+            <div if:true={isLoading} class="slds-is-relative slds-m-top_large">
+                <lightning-spinner alternative-text="Chargement" size="medium"></lightning-spinner>
+            </div>
+            
+            <div if:false={isLoading}>
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Bien">Bien</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Total Loyers">Total Loyers</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Total Charges">Total Charges</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Total Dépenses">Total Dépenses</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Rendement Brut">Rendement Brut</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Rendement Net">Rendement Net</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={rendements} for:item="rendement">
+                            <tr key={rendement.id} class="slds-hint-parent">
+                                <td data-label="Bien">
+                                    <div class="slds-truncate" title={rendement.bien}>{rendement.bien}</div>
+                                </td>
+                                <td data-label="Total Loyers">
+                                    <div class="slds-truncate" title={rendement.totalLoyers}>{rendement.totalLoyers} €</div>
+                                </td>
+                                <td data-label="Total Charges">
+                                    <div class="slds-truncate" title={rendement.totalCharges}>{rendement.totalCharges} €</div>
+                                </td>
+                                <td data-label="Total Dépenses">
+                                    <div class="slds-truncate" title={rendement.totalDepenses}>{rendement.totalDepenses} €</div>
+                                </td>
+                                <td data-label="Rendement Brut">
+                                    <div class="slds-truncate slds-text-color_success" title={rendement.rendementBrut}>{rendement.rendementBrut}%</div>
+                                </td>
+                                <td data-label="Rendement Net">
+                                    <div class="slds-truncate slds-text-color_success" title={rendement.rendementNet}>{rendement.rendementNet}%</div>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                    <tfoot if:true={afficherTous}>
+                        <tr class="slds-line-height_reset">
+                            <td>
+                                <strong>TOTAL</strong>
+                            </td>
+                            <td>
+                                <strong>{totalLoyers} €</strong>
+                            </td>
+                            <td>
+                                <strong>{totalCharges} €</strong>
+                            </td>
+                            <td>
+                                <strong>{totalDepenses} €</strong>
+                            </td>
+                            <td>
+                                <strong>{rendementBrutMoyen}%</strong>
+                            </td>
+                            <td>
+                                <strong>{rendementNetMoyen}%</strong>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </lightning-card>
+</template>

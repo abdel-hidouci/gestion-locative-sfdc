@@ -1,0 +1,8 @@
+Bonjour {!Quittance__c.Paiement__r.Bail__r.Locataire__r.Name},
+
+Veuillez trouver ci-joint votre quittance de loyer pour la période du {!DAY(Quittance__c.Periode_Debut__c)}/{!MONTH(Quittance__c.Periode_Debut__c)}/{!YEAR(Quittance__c.Periode_Debut__c)} au {!DAY(Quittance__c.Periode_Fin__c)}/{!MONTH(Quittance__c.Periode_Fin__c)}/{!YEAR(Quittance__c.Periode_Fin__c)} concernant le bien situé à {!Quittance__c.Paiement__r.Bail__r.Bien_Locatif__r.Adresse__c}.
+
+Cette quittance atteste que vous êtes à jour de vos paiements pour cette période.
+
+Cordialement,
+Votre gestionnaire locatif

@@ -1,0 +1,25 @@
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Statut__c</fullName>
+    <externalId>false</externalId>
+    <label>Statut</label>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <value>
+                <fullName>En attente</fullName>
+                <default>true</default>
+                <label>En attente</label>
+            </value>
+            <value>
+                <fullName>Encaissé</fullName>
+                <default>false</default>
+                <label>Encaissé</label>
+            </value>
+            <value>
+                <fullName>Rejeté</fullName>
+                <default>false</default>
+                <label>Rejeté</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
