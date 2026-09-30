@@ -1,12 +1,13 @@
 /**
- * sfdc-auth.js - Module d'authentification OAuth 2.0 PKCE & Synchronisation REST API
+ * sfdc-auth.js - Module d'authentification OAuth 2.0 & Synchronisation REST API
  * pour le Tableau de Bord Gestion Locative Immobilière.
  */
 
 const SFDC_AUTH_CONFIG = {
     // Client ID de la Connected App Salesforce N8N / GestionLocative
     clientId: '3MVG9PwZx9R6_UrdrleBoEfwuw9hs.uuDx4HGEjBw4KwURI.PxsWUKYy1ibGUQ7Ha3gUE_2wMyAGhEviYZj51',
-    loginUrl: 'https://login.salesforce.com',
+    // URL My Domain dédiée de l'organisation (indispensable pour CORS et OAuth)
+    loginUrl: 'https://eurlhidouciconsulting-dev-ed.develop.my.salesforce.com',
     get redirectUri() {
         // Enlève les paramètres de requête et hash pour correspondre exactement à l'URL de callback autorisée
         return window.location.origin + window.location.pathname;
@@ -27,44 +28,19 @@ const sfdcAuth = {
         return result;
     },
 
-    // Calcule le hash SHA-256
-    async sha256(plain) {
-        const encoder = new TextEncoder();
-        const data = encoder.encode(plain);
-        return crypto.subtle.digest('SHA-256', data);
-    },
-
-    // Encode en Base64-URL sans padding
-    base64UrlEncode(buffer) {
-        let str = '';
-        const bytes = new Uint8Array(buffer);
-        for (let i = 0; i < bytes.byteLength; i++) {
-            str += String.fromCharCode(bytes[i]);
-        }
-        return btoa(str)
-            .replace(/\+/g, '-')
-            .replace(/\//g, '_')
-            .replace(/=+$/, '');
-    },
-
-    // Lance le flux OAuth 2.0 PKCE
-    async login() {
+    // Lance la connexion OAuth 2.0
+    // Utilise le flux User-Agent (response_type=token) adapté aux SPA,
+    // ce qui évite tout blocage CORS sur l'échange POST du token
+    login() {
         try {
-            const verifier = this.generateRandomString(96);
-            const hashed = await this.sha256(verifier);
-            const challenge = this.base64UrlEncode(hashed);
             const state = this.generateRandomString(16);
-
-            sessionStorage.setItem('sfdc_pkce_verifier', verifier);
             sessionStorage.setItem('sfdc_oauth_state', state);
 
             const params = new URLSearchParams({
-                response_type: 'code',
+                response_type: 'token',
                 client_id: SFDC_AUTH_CONFIG.clientId,
                 redirect_uri: SFDC_AUTH_CONFIG.redirectUri,
-                code_challenge: challenge,
-                code_challenge_method: 'S256',
-                scope: 'full refresh_token',
+                scope: 'full',
                 state: state,
                 prompt: 'login consent'
             });
@@ -72,13 +48,43 @@ const sfdcAuth = {
             const authUrl = `${SFDC_AUTH_CONFIG.loginUrl}/services/oauth2/authorize?${params.toString()}`;
             window.location.href = authUrl;
         } catch (err) {
-            console.error("Erreur lors de l'initialisation OAuth PKCE:", err);
+            console.error("Erreur lors de l'initialisation OAuth:", err);
             alert("Erreur lors de la connexion à Salesforce: " + err.message);
         }
     },
 
-    // Traite le retour OAuth (?code=...)
+    // Traite le retour OAuth (#access_token=... ou ?code=...)
     async handleCallback() {
+        // 1. Flux User-Agent : Salesforce renvoie les jetons dans le fragment hash (#access_token=...)
+        if (window.location.hash && window.location.hash.includes('access_token=')) {
+            try {
+                const hash = window.location.hash.substring(1);
+                const params = new URLSearchParams(hash);
+                const accessToken = params.get('access_token');
+                const instanceUrl = params.get('instance_url');
+                const error = params.get('error');
+                const errorDesc = params.get('error_description');
+
+                if (error) {
+                    console.error("Erreur renvoyée par Salesforce:", error, errorDesc);
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                    alert(`Erreur d'authentification Salesforce : ${errorDesc || error}`);
+                    return false;
+                }
+
+                if (accessToken && instanceUrl) {
+                    sessionStorage.setItem('sfdc_access_token', accessToken);
+                    sessionStorage.setItem('sfdc_instance_url', instanceUrl);
+                    // Nettoyage immédiat du hash dans l'URL pour garder une URL propre
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                    return true;
+                }
+            } catch (e) {
+                console.error("Erreur lors de la lecture du hash OAuth:", e);
+            }
+        }
+
+        // 2. Flux Authorization Code / PKCE (?code=...) en secours
         const urlParams = new URLSearchParams(window.location.search);
         const code = urlParams.get('code');
         const state = urlParams.get('state');
@@ -93,14 +99,7 @@ const sfdcAuth = {
         }
 
         if (code) {
-            const savedState = sessionStorage.getItem('sfdc_oauth_state');
             const verifier = sessionStorage.getItem('sfdc_pkce_verifier');
-
-            if (state && savedState && state !== savedState) {
-                console.error("State mismatch: sécurité compromise.");
-                window.history.replaceState({}, document.title, window.location.pathname);
-                return false;
-            }
 
             // Nettoyage immédiat de l'URL pour garder une interface propre
             window.history.replaceState({}, document.title, window.location.pathname);
@@ -109,9 +108,11 @@ const sfdcAuth = {
                 grant_type: 'authorization_code',
                 client_id: SFDC_AUTH_CONFIG.clientId,
                 redirect_uri: SFDC_AUTH_CONFIG.redirectUri,
-                code: code,
-                code_verifier: verifier
+                code: code
             });
+            if (verifier) {
+                bodyParams.append('code_verifier', verifier);
+            }
 
             try {
                 const response = await fetch(`${SFDC_AUTH_CONFIG.loginUrl}/services/oauth2/token`, {
@@ -139,7 +140,9 @@ const sfdcAuth = {
                 return true;
             } catch (e) {
                 console.error("Erreur lors de l'échange du token:", e);
-                alert(`Erreur lors de l'échange du jeton Salesforce: ${e.message}`);
+                // Si l'échange échoue (CORS sur /services/oauth2/token), basculer automatiquement sur le flux User-Agent direct
+                console.warn("Basculement automatique sur le flux direct...");
+                this.login();
                 return false;
             }
         }
