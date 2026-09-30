@@ -43,3 +43,6 @@ $RECYCLE.BIN/
 **/__pycache__/
 **/.venv/
 **/venv/
+
+# Private financial data exports
+reports/data.json
