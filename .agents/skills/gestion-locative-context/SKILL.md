@@ -65,7 +65,14 @@ flowchart TD
 ### Étape 1 : Encaissement des Loyers Directs
 * Pour les biens gérés en direct (ex. *87 rue Galienni*, parkings) :
   * Mettre `Statut__c = 'Encaissé'` et renseigner `Date_Encaissement__c`.
-  * La `Quittance__c` PDF est automatiquement générée par le déclencheur `PaiementTrigger`.
+  * **Spécificité pour 87 rue Galienni (Franklin & Juliana MAJADUCON)** :
+    1. Exporter en PDF la quittance mensuelle depuis Google Drive (modèle Google Doc du mois correspondant).
+    2. Rattacher le PDF de quittance au paiement Salesforce (`Paiement__c`) via `ContentVersion` / `ContentDocumentLink`, et créer/vérifier l'enregistrement `Quittance__c`.
+    3. Créer automatiquement un brouillon Gmail depuis `abdel.hidouci@gmail.com` :
+       - **Destinataires** : `franklin.majaducon@gmail.com, jmajaduccon.spmi@gmail.com`
+       - **Objet** : `Quittance Loyer Majaducon MM-YYYY`
+       - **Corps** : Modèle standard rappelant le mois concerné
+       - **Pièce jointe** : Le PDF de quittance généré (`Quittance Loyer Franklin MAJADUCON et Juliana MAJADUCON MM_YYYY.pdf`).
 
 ### Étape 2 : Comptes Rendus de Gestion Agence (GFF)
 * Identifier le bien grâce au `Ref. Mandat` (`Bail__r.NumeroMandat__c`).
